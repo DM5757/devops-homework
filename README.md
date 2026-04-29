@@ -2,35 +2,46 @@
 
 ## Live Application
 
-`https://your-live-app-url.example.com`
+[https://devops-homework.onrender.com/](https://devops-homework.onrender.com/)
 
 ## Screenshots
 
-- Home page screenshot: *(placeholder)*
-- Health endpoint screenshot: *(placeholder)*
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Health Endpoint
+![Health Endpoint](screenshots/health.png)
+
+### GitHub Actions Run
+![GitHub Actions](screenshots/actions.png)
 
 ## Project Overview
 
-This beginner-friendly Node.js + Express app is used to demonstrate CI/CD pipeline automation and deployment strategies.
+This is a simple Node.js + Express app for practicing CI/CD pipeline automation and deployment strategies.
 
 ### CI (Continuous Integration)
 
-On every push and pull request, GitHub Actions runs the automated test suite first (`npm test`). This ensures the application still behaves correctly before any deployment attempt.
+Every time I push code or open a pull request, GitHub Actions runs the tests first (`npm test`). If the tests fail, it stops there.
 
 ### CD (Continuous Delivery / Deployment)
 
-After the CI tests pass, GitHub Actions can deploy the updated service.
-
-In this homework, CD only runs when:
-- the event is a `push`
-- the branch is `main`
-- the test job completed successfully
+If the tests pass and it is a push to the `main` branch, the workflow starts deployment.
 
 ## Deployment Strategy: Rolling Deployment
 
-The chosen strategy is **Rolling Deployment**. With this approach, Render redeploys the service in a way that targets minimal downtime by transitioning to the new version while the service remains available.
+The chosen strategy is **Rolling Deployment**. With this approach, Render redeploys the service while keeping it available, so downtime is usually minimal.
 
-Render redeploys the service **only after** GitHub Actions confirms that tests pass, reducing the chance of shipping broken changes.
+Deployment only starts **after** GitHub Actions confirms the tests pass, so broken changes should not go live.
+
+## CI/CD Pipeline Flow
+
+- I push code to GitHub (main branch)
+- GitHub Actions starts automatically
+- It installs dependencies
+- It runs tests
+- If tests pass, deployment starts
+- GitHub Actions triggers Render using deploy hook
+- Render updates the live app
 
 ## Rollback Guide (Render)
 
@@ -55,5 +66,3 @@ Run tests:
 ```bash
 npm test
 ```
-
-test readme change
